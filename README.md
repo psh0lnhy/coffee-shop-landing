@@ -3,7 +3,10 @@
 A concept landing page for a fictional neighbourhood espresso bar in Kraków, built as a
 portfolio project. Single page, no build step, no dependencies — just HTML, CSS and vanilla JS.
 
-**Live demo:** http://localhost:8123 (run `python -m http.server 8123` in this folder)
+**Live demo:** https://psh0lnhy.github.io/coffee-shop-landing/
+**Repository:** https://github.com/psh0lnhy/coffee-shop-landing
+
+Run locally: `node serve.js 8123` in this folder, then open http://127.0.0.1:8123
 
 ---
 
