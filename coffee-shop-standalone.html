@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mleko &amp; Miód — Neighbourhood Espresso Bar in Kraków</title>
+  <meta name="description" content="Slow coffee, fast service. Single-origin espresso bar in Kraków. Oat milk with no surcharge, pastries baked every morning." />
+  <meta name="theme-color" content="#1a1210" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #1a1210;
+  --ink-soft: #3b2f2a;
+  --cream: #f7f0e6;
+  --cream-2: #efe4d4;
+  --caramel: #c98b5e;
+  --caramel-deep: #a86a3f;
+  --olive: #5d6b4a;
+  --line: rgba(26, 18, 16, 0.14);
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 24px 60px -30px rgba(26, 18, 16, 0.45);
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --maxw: 1120px;
+  --gutter: clamp(20px, 5vw, 48px);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.08; margin: 0 0 .5em; letter-spacing: -.02em; }
+h1 { font-size: clamp(2.6rem, 6.4vw, 4.6rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
+h3 { font-size: 1.15rem; letter-spacing: -.01em; }
+p { margin: 0 0 1em; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  background: var(--ink); color: var(--cream); padding: 10px 16px;
+  border-radius: var(--radius-sm); transition: top .2s ease;
+}
+.skip-link:focus { top: 12px; }
+
+:focus-visible { outline: 3px solid var(--caramel-deep); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--ink);
+  --btn-fg: var(--cream);
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  background: var(--btn-bg); color: var(--btn-fg);
+  border: 1px solid transparent; border-radius: 999px;
+  padding: 14px 26px; font: 600 .95rem/1 var(--font-body);
+  text-decoration: none; cursor: pointer;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -14px rgba(26,18,16,.7); }
+.btn:active { transform: translateY(0); }
+.btn-ghost { --btn-bg: transparent; --btn-fg: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { --btn-bg: rgba(26,18,16,.05); }
+.btn-small { padding: 11px 20px; font-size: .875rem; }
+.btn-full { width: 100%; }
+
+.link-arrow {
+  display: inline-flex; align-items: center; gap: .4em;
+  font-weight: 600; text-decoration: none;
+  border-bottom: 2px solid currentColor; padding-bottom: 2px;
+}
+.link-arrow span { transition: transform .2s ease; }
+.link-arrow:hover span { transform: translateX(4px); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--cream) 86%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease, background .2s ease;
+}
+.site-header.is-scrolled { border-bottom-color: var(--line); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 74px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.logo-mark { color: var(--caramel-deep); }
+.logo-text { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; }
+.logo-text em { font-style: italic; color: var(--caramel-deep); }
+
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a:not(.btn) {
+  text-decoration: none; font-size: .92rem; font-weight: 500; color: var(--ink-soft);
+  position: relative; padding-block: 4px;
+}
+.nav a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--caramel-deep); transition: width .22s ease;
+}
+.nav a:not(.btn):hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none; width: 44px; height: 44px; border: 1px solid var(--line);
+  background: transparent; border-radius: 12px; padding: 12px 10px;
+  flex-direction: column; justify-content: space-between; cursor: pointer;
+}
+.nav-toggle span { display: block; height: 2px; background: var(--ink); transition: transform .25s ease, opacity .2s ease; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(40px, 7vw, 84px) clamp(32px, 5vw, 56px); }
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(32px, 5vw, 64px); align-items: center;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--caramel-deep); margin-bottom: 14px;
+}
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #9a9a9a;
+  box-shadow: 0 0 0 4px rgba(154,154,154,.18);
+}
+.status-dot.is-open { background: var(--olive); box-shadow: 0 0 0 4px rgba(93,107,74,.2); }
+.status-dot.is-closed { background: #b4553f; box-shadow: 0 0 0 4px rgba(180,85,63,.18); }
+
+.hero h1 { margin-bottom: .35em; }
+.accent { color: var(--caramel-deep); font-style: italic; font-weight: 600; }
+.lead { font-size: clamp(1rem, 1.4vw, 1.1rem); color: var(--ink-soft); max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 34px; }
+.hero-facts { display: flex; flex-wrap: wrap; gap: clamp(20px, 4vw, 44px); border-top: 1px solid var(--line); padding-top: 20px; }
+.hero-facts li { display: flex; flex-direction: column; gap: 2px; }
+.hero-facts strong { font-family: var(--font-display); font-size: 1.5rem; line-height: 1; }
+.hero-facts span { font-size: .8rem; color: var(--ink-soft); }
+
+/* Hero art: CSS-only coffee card */
+.hero-art { position: relative; min-height: 440px; }
+.cup-card {
+  position: absolute; inset: 0 0 40px 0;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 90% at 80% 10%, #e8c9a8 0%, transparent 60%),
+    linear-gradient(160deg, #2b1d18 0%, #3d2a22 55%, #241814 100%);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: grid; place-items: center;
+}
+.cup-card::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 18px 18px; opacity: .5;
+}
+.cup { position: relative; width: 176px; height: 150px; transform: translateY(10px); }
+.cup-body {
+  position: absolute; left: 18px; top: 34px; width: 118px; height: 92px;
+  background: linear-gradient(180deg, #f6ead9, #e3cdb2);
+  border-radius: 10px 10px 56px 56px;
+  box-shadow: inset -10px -8px 0 rgba(168,106,63,.14);
+}
+.cup-body::after {
+  content: ""; position: absolute; left: 8px; right: 8px; top: -6px; height: 14px;
+  border-radius: 50%; background: radial-gradient(closest-side, #5b3a25 0%, #2a1a12 100%);
+  box-shadow: inset 0 3px 6px rgba(0,0,0,.35);
+}
+.cup-handle {
+  position: absolute; right: 6px; top: 52px; width: 44px; height: 44px;
+  border: 10px solid #efdfca; border-radius: 50%;
+}
+.cup-saucer {
+  position: absolute; left: 0; bottom: 0; width: 154px; height: 18px;
+  border-radius: 50%; background: linear-gradient(180deg, #f2e3cf, #cdb397);
+  box-shadow: 0 14px 26px -12px rgba(0,0,0,.55);
+}
+.steam { position: absolute; top: 34px; left: 50%; translate: -50% 0; display: flex; gap: 12px; }
+.steam span {
+  width: 6px; height: 42px; border-radius: 999px;
+  background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,.5));
+  animation: steam 3.4s ease-in-out infinite;
+}
+.steam span:nth-child(2) { animation-delay: .5s; height: 54px; }
+.steam span:nth-child(3) { animation-delay: 1s; }
+@keyframes steam {
+  0%, 100% { transform: translateY(0) scaleY(1); opacity: .25; }
+  50% { transform: translateY(-16px) scaleY(1.15); opacity: .75; }
+}
+.beans span {
+  position: absolute; width: 13px; height: 18px; border-radius: 50%;
+  background: linear-gradient(140deg, #6d4227, #2c1a11);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.beans span::after {
+  content: ""; position: absolute; left: 50%; top: 12%; width: 1.5px; height: 76%;
+  background: rgba(255,255,255,.22); translate: -50% 0; border-radius: 2px;
+}
+.beans span:nth-child(1) { left: 8%; top: 12%; rotate: -18deg; }
+.beans span:nth-child(2) { left: 84%; top: 24%; rotate: 24deg; }
+.beans span:nth-child(3) { left: 16%; bottom: 16%; rotate: 42deg; }
+.beans span:nth-child(4) { right: 18%; bottom: 8%; rotate: -34deg; }
+.beans span:nth-child(5) { right: 8%; top: 62%; rotate: 8deg; }
+
+.badge-card {
+  position: absolute; right: -8px; bottom: 0;
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--cream); border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 18px; box-shadow: var(--shadow);
+  max-width: 240px;
+}
+.badge-title { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--caramel-deep); font-weight: 600; }
+.badge-value { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
+.badge-note { font-size: .78rem; color: var(--ink-soft); }
+
+/* ---------- Marquee ---------- */
+.marquee {
+  border-block: 1px solid var(--line);
+  background: var(--cream-2);
+  overflow: hidden; padding-block: 14px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex; gap: 26px; width: max-content;
+  font-family: var(--font-display); font-size: .95rem; font-style: italic;
+  color: var(--ink-soft); white-space: nowrap;
+  animation: marquee 34s linear infinite;
+}
+.marquee-track span:nth-child(even) { color: var(--caramel-deep); }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- Sections ---------- */
+.section { padding-block: clamp(56px, 9vw, 104px); }
+.section-alt { background: var(--cream-2); }
+.section-head { max-width: 620px; margin-bottom: clamp(28px, 4vw, 48px); }
+.section-sub { color: var(--ink-soft); margin: 0; }
+
+/* ---------- Menu ---------- */
+.menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.menu-card {
+  background: #fffaf3; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(22px, 3vw, 30px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.menu-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.menu-card h3 { margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.price-list li { display: flex; align-items: baseline; gap: 8px; padding-block: 7px; font-size: .95rem; }
+.price-list li span:first-child { font-weight: 500; }
+.price-list li span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+.dots { flex: 1; border-bottom: 1px dotted var(--line); translate: 0 -4px; }
+
+/* ---------- Story ---------- */
+.story-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.story-text p { color: var(--ink-soft); max-width: 56ch; }
+.story-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.story-stats li { background: var(--cream); padding: 22px; display: flex; flex-direction: column; gap: 4px; }
+.story-stats strong { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1; }
+.story-stats span { font-size: .82rem; color: var(--ink-soft); }
+
+/* ---------- Reviews ---------- */
+.reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.review {
+  margin: 0; background: #fffaf3; border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 26px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+}
+.review blockquote { margin: 0; font-family: var(--font-display); font-size: 1.06rem; line-height: 1.45; }
+.review figcaption { font-size: .8rem; color: var(--ink-soft); letter-spacing: .02em; }
+
+/* ---------- Visit ---------- */
+.visit-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.visit-address { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+.hours { width: 100%; border-collapse: collapse; margin: 26px 0; font-size: .95rem; }
+.hours th, .hours td { text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.hours td { text-align: right; font-variant-numeric: tabular-nums; }
+.hours tr.is-today th, .hours tr.is-today td { font-weight: 700; color: var(--caramel-deep); }
+.contact-list { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: .95rem; }
+.contact-list a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.contact-list a:hover { border-color: currentColor; }
+
+.visit-form {
+  background: #fffaf3; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(22px, 3.4vw, 34px); box-shadow: var(--shadow);
+}
+.form-note { font-size: .85rem; color: var(--ink-soft); margin-bottom: 20px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: .82rem; font-weight: 600; letter-spacing: .02em; margin-bottom: 6px; }
+.field input, .field textarea {
+  width: 100%; font: inherit; font-size: .95rem; color: var(--ink);
+  background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 12px 14px; transition: border-color .18s ease, box-shadow .18s ease;
+}
+.field textarea { resize: vertical; min-height: 84px; }
+.field input:focus, .field textarea:focus {
+  outline: none; border-color: var(--caramel-deep);
+  box-shadow: 0 0 0 3px rgba(168,106,63,.16);
+}
+.field input[aria-invalid="true"] { border-color: #b4553f; }
+.error { margin: 6px 0 0; font-size: .78rem; color: #b4553f; min-height: 1em; }
+.form-status { margin: 14px 0 0; font-size: .85rem; color: var(--olive); min-height: 1.2em; font-weight: 600; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--line); padding-block: 40px; background: var(--cream); }
+.footer-grid { display: grid; grid-template-columns: 1fr auto minmax(0, 320px); gap: 28px; align-items: start; }
+.footer-note { font-size: .85rem; color: var(--ink-soft); margin: 6px 0 0; }
+.site-footer nav { display: flex; gap: 18px; font-size: .88rem; }
+.site-footer nav a { text-decoration: none; border-bottom: 1px solid transparent; }
+.site-footer nav a:hover { border-color: currentColor; }
+.footer-legal { font-size: .75rem; color: rgba(26,18,16,.55); margin: 0; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 24px; translate: -50% 20px;
+  background: var(--ink); color: var(--cream); font-size: .88rem;
+  padding: 12px 20px; border-radius: 999px; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none; transition: opacity .25s ease, translate .25s ease;
+  z-index: 80; max-width: calc(100vw - 40px);
+}
+.toast.is-visible { opacity: 1; translate: -50% 0; }
+
+/* ---------- Reveal on scroll ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .hero-grid, .story-grid, .visit-grid { grid-template-columns: 1fr; }
+  .hero-art { min-height: 360px; max-width: 520px; }
+  .menu-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-legal { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .nav-toggle { display: flex; }
+  .nav {
+    position: absolute; inset: 74px 0 auto 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--cream); border-bottom: 1px solid var(--line);
+    padding: 8px var(--gutter) 20px;
+    transform: translateY(-8px); opacity: 0; visibility: hidden;
+    transition: opacity .22s ease, transform .22s ease, visibility .22s;
+  }
+  .nav.is-open { opacity: 1; transform: none; visibility: visible; }
+  .nav a:not(.btn) { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1rem; }
+  .nav a:not(.btn)::after { display: none; }
+  .nav .btn { margin-top: 16px; }
+  .menu-grid, .reviews-grid { grid-template-columns: 1fr; }
+  .hero-art { min-height: 320px; }
+  .badge-card { right: 0; bottom: -6px; padding: 12px 14px; }
+  .story-stats { grid-template-columns: 1fr 1fr; }
+  .site-footer nav { flex-wrap: wrap; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track, .steam span { animation: none; }
+  .btn, .menu-card { transition: none; }
+}
+
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="Mleko and Miód — home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+            <path d="M6 12h16v9a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6v-9Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M22 14h2a3 3 0 0 1 0 6h-2" stroke="currentColor" stroke-width="2"/>
+            <path d="M11 8c0-1.5 1-2 1-3.5M16 8c0-1.5 1-2 1-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="logo-text">Mleko <em>&amp;</em> Miód</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#menu">Menu</a>
+        <a href="#story">Story</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#visit">Visit</a>
+        <a class="btn btn-small" href="#visit">Book a table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">
+            <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+            <span id="statusText">Checking opening hours…</span>
+          </p>
+          <h1>Slow coffee.<br /><span class="accent">Fast service.</span></h1>
+          <p class="lead">
+            A neighbourhood espresso bar on Szewska. Single-origin beans roasted weekly,
+            oat milk that actually tastes good, and a pastry case that never lasts till noon.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#menu">See the menu</a>
+            <a class="btn btn-ghost" href="#visit">Find us</a>
+          </div>
+          <ul class="hero-facts">
+            <li><strong>4.9</strong><span>Google rating</span></li>
+            <li><strong>6 days</strong><span>Since roast</span></li>
+            <li><strong>0 zł</strong><span>Oat milk surcharge</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-art reveal" aria-hidden="true">
+          <div class="cup-card">
+            <div class="steam"><span></span><span></span><span></span></div>
+            <div class="cup">
+              <div class="cup-body"></div>
+              <div class="cup-handle"></div>
+              <div class="cup-saucer"></div>
+            </div>
+            <div class="beans">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="badge-card">
+            <span class="badge-title">Today</span>
+            <span class="badge-value">Ethiopia Guji</span>
+            <span class="badge-note">blueberry · jasmine · honey</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>single origin</span><span>·</span><span>fresh roast</span><span>·</span>
+        <span>oat milk, no surcharge</span><span>·</span><span>pastries at 7:00</span><span>·</span>
+        <span>dog friendly</span><span>·</span><span>wifi, obviously</span><span>·</span>
+        <span>single origin</span><span>·</span><span>fresh roast</span><span>·</span>
+        <span>oat milk, no surcharge</span><span>·</span><span>pastries at 7:00</span><span>·</span>
+        <span>dog friendly</span><span>·</span><span>wifi, obviously</span><span>·</span>
+      </div>
+    </div>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Menu</p>
+          <h2>Short list, done properly</h2>
+          <p class="section-sub">Prices in PLN. Every drink can be made with oat, soy or almond milk — no extra charge, ever.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-card reveal">
+            <h3>Espresso bar</h3>
+            <ul class="price-list">
+              <li><span>Espresso</span><span class="dots"></span><span>9</span></li>
+              <li><span>Doppio</span><span class="dots"></span><span>12</span></li>
+              <li><span>Cortado</span><span class="dots"></span><span>14</span></li>
+              <li><span>Cappuccino</span><span class="dots"></span><span>15</span></li>
+              <li><span>Flat white</span><span class="dots"></span><span>16</span></li>
+              <li><span>Mocha</span><span class="dots"></span><span>18</span></li>
+            </ul>
+          </article>
+
+          <article class="menu-card reveal">
+            <h3>Filter &amp; cold</h3>
+            <ul class="price-list">
+              <li><span>Batch brew</span><span class="dots"></span><span>13</span></li>
+              <li><span>V60</span><span class="dots"></span><span>17</span></li>
+              <li><span>Cold brew</span><span class="dots"></span><span>16</span></li>
+              <li><span>Iced latte</span><span class="dots"></span><span>17</span></li>
+              <li><span>Chemex for two</span><span class="dots"></span><span>32</span></li>
+            </ul>
+          </article>
+
+          <article class="menu-card reveal">
+            <h3>From the oven</h3>
+            <ul class="price-list">
+              <li><span>Butter croissant</span><span class="dots"></span><span>12</span></li>
+              <li><span>Almond croissant</span><span class="dots"></span><span>15</span></li>
+              <li><span>Cinnamon bun</span><span class="dots"></span><span>14</span></li>
+              <li><span>Banana bread</span><span class="dots"></span><span>13</span></li>
+              <li><span>Sourdough toast</span><span class="dots"></span><span>22</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="story">
+      <div class="container story-grid">
+        <div class="story-text reveal">
+          <p class="eyebrow">Story</p>
+          <h2>We opened because the street needed a good flat white</h2>
+          <p>
+            In 2019 we took over a tiny kiosk with one grinder, two stools and a stubborn idea:
+            coffee doesn't have to be complicated to be excellent. Six years later we roast
+            in-house, bake before sunrise and still know most of our regulars by name.
+          </p>
+          <p>
+            No loyalty app, no QR menus at the table, no 12-step milk menu. Just good beans,
+            clean equipment and baristas who care whether your shot pulled right.
+          </p>
+          <a class="link-arrow" href="#visit">Come say hi <span aria-hidden="true">→</span></a>
+        </div>
+
+        <ul class="story-stats reveal">
+          <li><strong>2019</strong><span>first espresso poured</span></li>
+          <li><strong>3</strong><span>roasts on the bar</span></li>
+          <li><strong>~140</strong><span>cups a day</span></li>
+          <li><strong>1</strong><span>shop dog, on duty</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Reviews</p>
+          <h2>What the street says</h2>
+        </div>
+        <div class="reviews-grid">
+          <figure class="review reveal">
+            <blockquote>“The only place in the centre where I don't feel rushed. Flat white is consistently excellent.”</blockquote>
+            <figcaption>Marta K. · regular since 2021</figcaption>
+          </figure>
+          <figure class="review reveal">
+            <blockquote>“Asked for a coffee recommendation, got a five-minute talk about Ethiopian beans. No regrets.”</blockquote>
+            <figcaption>Tomasz W. · Google review</figcaption>
+          </figure>
+          <figure class="review reveal">
+            <blockquote>“They remembered my order after two visits. That's the whole review, really.”</blockquote>
+            <figcaption>Olena S. · Google review</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="visit">
+      <div class="container visit-grid">
+        <div class="visit-info reveal">
+          <p class="eyebrow">Visit</p>
+          <h2>Find us on Szewska</h2>
+          <p class="visit-address">ul. Szewska 12, 31-009 Kraków</p>
+          <a class="link-arrow" href="https://maps.google.com/?q=Szewska+12+Krakow" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span></a>
+
+          <table class="hours">
+            <caption class="visually-hidden">Opening hours</caption>
+            <tbody>
+              <tr data-days="1,2,3,4,5"><th scope="row">Mon–Fri</th><td>7:00 – 20:00</td></tr>
+              <tr data-days="6"><th scope="row">Saturday</th><td>8:00 – 21:00</td></tr>
+              <tr data-days="0"><th scope="row">Sunday</th><td>9:00 – 18:00</td></tr>
+            </tbody>
+          </table>
+
+          <ul class="contact-list">
+            <li><a href="tel:+48123456789">+48 12 345 67 89</a></li>
+            <li><a href="mailto:hello@mlekomiod.example">hello@mlekomiod.example</a></li>
+          </ul>
+        </div>
+
+        <div class="visit-form reveal">
+          <h3>Book a table</h3>
+          <p class="form-note">Up to 6 people. For groups, call us directly.</p>
+          <form id="bookingForm" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Anna Kowalska" required />
+              <p class="error" data-error-for="name" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="anna@example.com" required />
+              <p class="error" data-error-for="email" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="date">Date &amp; time</label>
+              <input id="date" name="date" type="datetime-local" required />
+              <p class="error" data-error-for="date" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="message">Anything we should know?</label>
+              <textarea id="message" name="message" rows="3" placeholder="Window seat, birthday, pram…"></textarea>
+            </div>
+            <button class="btn btn-full" type="submit">Send booking request</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="logo-text">Mleko <em>&amp;</em> Miód</p>
+        <p class="footer-note">ul. Szewska 12, Kraków · open 7 days</p>
+      </div>
+      <nav aria-label="Social">
+        <a href="#" rel="noopener">Instagram</a>
+        <a href="#" rel="noopener">Facebook</a>
+        <a href="mailto:hello@mlekomiod.example">Email</a>
+      </nav>
+      <p class="footer-legal">
+        Concept demo — fictional coffee shop, built as a portfolio project.
+        No real bookings are accepted.
+      </p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+/* =========================================================
+   Mleko & Miód — landing page interactions
+   Vanilla JS, no dependencies.
+   ========================================================= */
+(() => {
+  "use strict";
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  /* ---------- Mobile navigation ---------- */
+  const toggle = $(".nav-toggle");
+  const nav = $("#nav");
+
+  const closeNav = () => {
+    if (!nav || !toggle) return;
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Open menu");
+  };
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) closeNav();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeNav();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 720) closeNav();
+    });
+  }
+
+  /* ---------- Sticky header shadow ---------- */
+  const header = $(".site-header");
+  const onScroll = () => {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Opening hours (Europe/Warsaw) ---------- *
+   * 0 = Sunday … 6 = Saturday
+   * Each entry: [openHour, closeHour] in 24h decimal hours.
+   */
+  const HOURS = {
+    0: [9, 18],   // Sunday
+    1: [7, 20],   // Monday
+    2: [7, 20],
+    3: [7, 20],
+    4: [7, 20],
+    5: [7, 20],
+    6: [8, 21],   // Saturday
+  };
+
+  const getWarsawNow = () => {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Warsaw",
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).formatToParts(new Date());
+
+    const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+    const days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    return {
+      day: days[map.weekday] ?? new Date().getDay(),
+      hour: Number(map.hour) % 24,
+      minute: Number(map.minute),
+    };
+  };
+
+  const formatHour = (value) => {
+    const h = Math.floor(value);
+    const m = Math.round((value - h) * 60);
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  };
+
+  const updateStatus = () => {
+    const dot = $("#statusDot");
+    const text = $("#statusText");
+    if (!dot || !text) return;
+
+    const { day, hour, minute } = getWarsawNow();
+    const now = hour + minute / 60;
+    const [open, close] = HOURS[day] ?? [0, 0];
+    const isOpen = now >= open && now < close;
+
+    dot.classList.toggle("is-open", isOpen);
+    dot.classList.toggle("is-closed", !isOpen);
+
+    if (isOpen) {
+      const closingSoon = close - now <= 1;
+      text.textContent = closingSoon
+        ? `Open · closing at ${formatHour(close)}`
+        : `Open now · until ${formatHour(close)}`;
+    } else {
+      // Find the next opening day (today if we open later, otherwise scan ahead).
+      let nextDay = day;
+      let nextOpen = open;
+      if (now >= close) {
+        for (let i = 1; i <= 7; i += 1) {
+          const d = (day + i) % 7;
+          if (HOURS[d]) {
+            nextDay = d;
+            nextOpen = HOURS[d][0];
+            break;
+          }
+        }
+      }
+      const label = nextDay === day ? "today" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][nextDay];
+      text.textContent = `Closed · opens ${label} at ${formatHour(nextOpen)}`;
+    }
+
+    $$(".hours tr[data-days]").forEach((row) => {
+      const days = (row.dataset.days || "").split(",").map(Number);
+      row.classList.toggle("is-today", days.includes(day));
+    });
+  };
+
+  updateStatus();
+  window.setInterval(updateStatus, 60_000);
+
+  /* ---------- Reveal on scroll ---------- */
+  const revealItems = $$(".reveal");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const parent = entry.target.parentElement;
+          const siblings = parent ? Array.from(parent.children).filter((el) => el.classList.contains("reveal")) : [];
+          const index = Math.max(0, siblings.indexOf(entry.target));
+          entry.target.style.transitionDelay = `${Math.min(index, 5) * 70}ms`;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealItems.forEach((el) => observer.observe(el));
+  } else {
+    revealItems.forEach((el) => el.classList.add("is-in"));
+  }
+
+  /* ---------- Toast ---------- */
+  const toast = $("#toast");
+  let toastTimer;
+  const showToast = (message) => {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 4200);
+  };
+
+  /* ---------- Booking form ---------- */
+  const form = $("#bookingForm");
+  const status = $("#formStatus");
+  const dateInput = $("#date");
+
+  if (dateInput) {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    dateInput.min = now.toISOString().slice(0, 16);
+  }
+
+  const setError = (field, message) => {
+    const error = $(`[data-error-for="${field.name}"]`);
+    if (error) error.textContent = message;
+    field.setAttribute("aria-invalid", message ? "true" : "false");
+  };
+
+  const validators = {
+    name: (value) => (value.trim().length >= 2 ? "" : "Please enter your name."),
+    email: (value) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()) ? "" : "Please enter a valid email."),
+    date: (value) => {
+      if (!value) return "Pick a date and time.";
+      return new Date(value).getTime() > Date.now() ? "" : "Please choose a future date.";
+    },
+  };
+
+  if (form) {
+    form.addEventListener("input", (event) => {
+      const field = event.target;
+      if (field.name in validators) setError(field, "");
+      if (status) status.textContent = "";
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let firstInvalid = null;
+
+      Object.entries(validators).forEach(([name, validate]) => {
+        const field = form.elements[name];
+        if (!field) return;
+        const message = validate(field.value);
+        setError(field, message);
+        if (message && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        showToast("Please fix the highlighted fields.");
+        return;
+      }
+
+      // Demo only: no backend. Simulate a request.
+      const button = form.querySelector("button[type=submit]");
+      const original = button ? button.textContent : "";
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Sending…";
+      }
+
+      window.setTimeout(() => {
+        if (button) {
+          button.disabled = false;
+          button.textContent = original;
+        }
+        if (status) status.textContent = "Request sent — we'll confirm by email within a day.";
+        form.reset();
+        if (dateInput) {
+          const now = new Date();
+          now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+          dateInput.min = now.toISOString().slice(0, 16);
+        }
+        showToast("Booking request sent (demo).");
+      }, 700);
+    });
+  }
+
+  /* ---------- Footer year ---------- */
+  const yearTarget = $("[data-year]");
+  if (yearTarget) yearTarget.textContent = String(new Date().getFullYear());
+})();
+
+</script>
+</body>
+</html>
